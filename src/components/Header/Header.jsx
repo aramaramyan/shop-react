@@ -11,7 +11,7 @@ export default function Header({cartState, toggleIsOpenPopup}) {
       </div>
       <div className="cart_container">
         <img src={cart} alt="cart logo" className="cart_logo" onClick={toggleIsOpenPopup}/>
-        {cartState.length ? <div className="food_count">{cartState.length}</div> : <></>}
+        {cartState.length ? <div className="product_count">{cartState.length}</div> : <></>}
       </div>
     </header>
   );
