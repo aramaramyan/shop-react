@@ -1,0 +1,128 @@
+.product_container {
+    position: relative;
+    width: 300px;
+    border-radius: 30px;
+    transition: 0.5s;
+    border: 1px solid gray;
+}
+
+.product_container:hover {
+    box-shadow: 0 10px 16px 0 rgba( 31, 38, 135, 0.37 );
+}
+
+.image {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    background: white;
+    overflow: hidden;
+    border-radius: 30px 30px 0 0;
+}
+
+.image img {
+    display: block;
+    width: 300px;
+    overflow: hidden;
+    transform: scale(0.7);
+    transition: 0.4s;
+}
+
+.image img:hover {
+    transform: scale(0.8);
+}
+
+.content {
+    margin-top: 15px;
+    padding: 0 20px 20px 20px;
+}
+
+.price {
+    text-align: center;
+}
+
+.product_category,
+.product_rating,
+.description_title {
+    margin: 8px;
+}
+
+.product_title,
+.product_category:hover,
+.product_rating:hover,
+.description_title:hover,
+.description_wrapper p:hover,
+.price:hover,
+.count:hover:hover {
+    cursor: default;
+}
+
+.product_title {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    width: 250px;
+    margin: 15px auto;
+    align-content: center;
+    font-size: 16px;
+    z-index: 3;
+}
+
+.description_wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    box-shadow: inset 5px 5px 4px rgba(0, 0, 0, 0.3), inset -5px -5px 4px rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    overflow: auto;
+}
+
+.description_wrapper p {
+    margin: 0;
+}
+
+.price {
+    margin-top: 20px;
+    color: green;
+}
+
+.buttons_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+.add_btn,
+.btn {
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 22px;
+    transition: 0.3s;
+}
+
+.count {
+    min-width: 100px;
+    font-size: 30px;
+    font-weight: 700;
+    text-align:center;
+    color: red;
+    overflow: hidden;
+}
+
+.add_btn {
+    display: block;
+    margin: 20px auto 0;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.add_btn:hover,
+.btn:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}

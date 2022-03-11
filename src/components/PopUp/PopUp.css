@@ -1,0 +1,87 @@
+.popup-wrapper {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 5;
+}
+
+.popup {
+    position: fixed;
+    top: 100px;
+    right: -200px;
+    padding: 0 10px;
+    max-height: calc(100vh - 123px);
+    width: 400px;
+    overflow: scroll;
+    z-index: 6;
+    background: rgba( 65, 67, 155, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    border-radius: 10px 0 0 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.popup_header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center
+}
+
+.total_price {
+    padding: 8px 0 0 15px;
+    color: white;
+    flex: 1 0 50%;
+}
+
+.total_price:hover,
+.popup_header p:hover {
+    cursor: default;
+}
+
+.popup_header p {
+    padding-top: 8px;
+    font-weight: 700;
+    color: red;
+}
+
+.delete_all_btn {
+    margin: 0 10px;
+    width: 20px;
+    height: 20px;
+    transition: 0.4s;
+}
+
+.delete_all_btn:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.slide-left {
+    -webkit-animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-left {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    100% {
+        -webkit-transform: translateX(-200px);
+        transform: translateX(-200px);
+    }
+}
+
+@keyframes slide-left {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    100% {
+        -webkit-transform: translateX(-200px);
+        transform: translateX(-200px);
+    }
+}

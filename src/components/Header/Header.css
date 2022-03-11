@@ -1,0 +1,64 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    color: white;
+    z-index: 4;
+    background: rgba( 65, 67, 155, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.title_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 250px;
+    margin-left: 30px;
+}
+
+.logo {
+   width: 100px;
+}
+
+.title {
+    width: 150px;
+}
+
+.cart_container {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: auto 20px;
+    transition: 0.3s;
+}
+
+.cart_container:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.cart_logo {
+    display: block;
+    margin: 0 auto;
+    padding-top: 3px;
+}
+
+.food_count {
+    position: absolute;
+    top: -7px;
+    right: 0;
+    min-width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 24px;
+    font-weight: 700;
+    font-size: 12px;
+    background: red;
+    border-radius: 10px;
+}
