@@ -1,99 +1,39 @@
-import {useState, useEffect} from "react";
+import {useEffect, useReducer} from "react";
 import PopUp from "./components/PopUp/PopUp";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Products from "./components/Products/Products";
 import setLocalStorage from "./helpers/setLocalStoraje";
-import getLocalStorage from "./helpers/getLocalStorage";
 import EmptyPopUp from "./components/PopUp/EmptyPopUp";
+import {initialState, ACTION_TYPES, reducer} from "./state";
+
 
 function App() {
-  const [state, setState] = useState([]);
-  const [cartState, setCartState] = useState(getLocalStorage() || []);
-  const [isOpenPopup, setIsOpenPopup] = useState(false);
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetch("https://dummyjson.com/products")
       .then(res => res.json())
-      .then(data => setState(data.products));
+      .then(data => dispatch({type:ACTION_TYPES.SET_STATE, data: data.products}));
   }, []);
 
   useEffect(() => {
-    setLocalStorage(cartState);
-  },);
+    setLocalStorage(state.cartState);
+  });
 
   function toggleIsOpenPopup() {
-    setIsOpenPopup(prev => !prev);
-  }
-
-  function addToCart(product) {
-    console.log(product);
-    if (cartState.length) {
-      if (cartState.some(item => item.id === product.id)) {
-        setCartState(prev => prev.map((item => {
-          if (item.id === product.id) {
-            return {...item, totalCount: item.totalCount + product.totalCount}
-          }
-          return item;
-        })));
-      } else {
-        setCartState(prev => prev.concat(product));
-      }
-
-    } else {
-      setCartState([product]);
-      setLocalStorage([product]);
-    }
-  }
-
-  function deleteFromCart(id) {
-    const newState = cartState.filter((product) => product.id !== id);
-    setCartState(newState);
-  }
-
-  function popupAddProduct(product) {
-    setCartState(prev => prev.map(item => {
-      if(item.id === product.id) {
-        return {...item, totalCount: item.totalCount + 1}
-      }
-      else {
-        return item;
-      }
-    }))
-  }
-
-  function popupMinusProduct(product) {
-    setCartState(prev => prev.map(item => {
-      if(item.id === product.id && product.totalCount > 1) {
-        return {...item, totalCount: item.totalCount - 1}
-      }
-      else {
-        return item;
-      }
-    }))
-  }
-
-  function deleteAll() {
-    setCartState(prev=> prev.length = 0);
+    dispatch({type: ACTION_TYPES.TOGGLE_IS_OPEN_POPUP});
   }
 
   return (
     <div className="App">
-      <Header cartState={cartState} toggleIsOpenPopup={toggleIsOpenPopup}/>
-      {isOpenPopup && (cartState.length ?
-        <PopUp
-        cartState={cartState}
-        deleteAll={deleteAll}
-        deleteFromCart={deleteFromCart}
-        popupAddProduct={popupAddProduct}
-        popupMinusProduct={popupMinusProduct}
-        toggleIsOpenPopup={toggleIsOpenPopup}
-        /> :  <EmptyPopUp toggleIsOpenPopup={toggleIsOpenPopup}/>)}
-      <Products
-        state={state}
-        addToCart={addToCart}
-        isOpenPopup={isOpenPopup}
-      />
+      <Header cartState={state.cartState} toggleIsOpenPopup={toggleIsOpenPopup}/>
+      {state.isOpenPopup && (state.cartState.length ?
+        <PopUp cartState={state.cartState} dispatch={dispatch}/> :  <EmptyPopUp dispatch={dispatch}/>)}
+
+      <Products data={state.data} isOpenPopup={state.isOpenPopup} dispatch={dispatch}/>
+
       <Footer/>
     </div>
   );
