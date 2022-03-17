@@ -1,15 +1,14 @@
 import {useState} from "react";
-import {Context} from "../../../context/MainContext";
 import minusIcon from "./../../../img/minus.svg";
 import plusIcon from "./../../../img/plus.svg";
 import addIcon from "./../../../img/addToCart.svg";
 import "./Product.css";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../../redux/actions";
 
 export default function Product({product}) {
-
+  const dispatch = useDispatch();
   const [count, setCount] = useState(1)
-
-  const context = Context();
 
   function addCount() {
     setCount(prev => prev + 1);
@@ -29,7 +28,7 @@ export default function Product({product}) {
       price: product.price,
       totalCount: count
     }
-    context.dispatch({type: context.type.ADD_TO_CART, product: productItem});
+    dispatch(addToCart(productItem));
     setCount(1);
   }
 

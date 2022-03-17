@@ -1,13 +1,14 @@
-import {Context} from "../../context/MainContext";
 import Product from "./Product/Product";
 import "./Products.css";
+import {useSelector} from "react-redux";
 
 export default function Products() {
-  const context = Context();
+  const data = useSelector(state => state.data);
+  const isOpenPopup = useSelector(state => state.isOpenPopup);
 
   return (
-    <div className={context.isOpenPopup? "product_list blur" : "product_list"}>
-      {context.state.data.map(product => <Product key={product.id} product={product}/>)}
+    <div className={isOpenPopup? "product_list blur" : "product_list"}>
+      {data.map(product => <Product key={product.id} product={product}/>)}
     </div>
   );
 }

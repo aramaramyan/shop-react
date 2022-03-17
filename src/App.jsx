@@ -1,31 +1,30 @@
 import {useEffect} from "react";
-import {Context} from "./context/MainContext";
-import PopUp from "./components/PopUp/PopUp";
-import Footer from "./components/Footer/Footer";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchData} from "./redux/actions";
 import Header from "./components/Header/Header";
-import Products from "./components/Products/Products";
-import setLocalStorage from "./helpers/setLocalStoraje";
+import PopUp from "./components/PopUp/PopUp";
 import EmptyPopUp from "./components/PopUp/EmptyPopUp";
-
+import Products from "./components/Products/Products";
+import Footer from "./components/Footer/Footer";
+import setLocalStorage from "./helpers/setLocalStoraje";
 
 function App() {
-
-  const context = Context();
+  const cartState = useSelector(state => state.cartState);
+  const isOpenPopup = useSelector(state => state.isOpenPopup);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("https://dummyjson.com/products")
-      .then(res => res.json())
-      .then(data => context.dispatch({type:context.type.SET_STATE, data: data.products}));
+    dispatch(fetchData());
   }, []);
 
   useEffect(() => {
-    setLocalStorage(context.state.cartState);
+    setLocalStorage(cartState);
   });
 
   return (
     <div className="App">
       <Header />
-      {context.state.isOpenPopup && (context.state.cartState.length ? <PopUp /> :  <EmptyPopUp />)}
+      {isOpenPopup && (cartState.length ? <PopUp /> :  <EmptyPopUp />)}
       <Products />
       <Footer/>
     </div>

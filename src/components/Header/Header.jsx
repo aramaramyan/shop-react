@@ -1,10 +1,12 @@
-import {Context} from "../../context/MainContext";
+import {useDispatch, useSelector} from "react-redux";
+import {togglePopUp} from "../../redux/actions";
 import cart from "./../../img/cart.svg"
 import logo from "./../../img/logo.png";
 import "./Header.css";
 
 export default function Header() {
-  const context = Context();
+  const cartState = useSelector(state => state.cartState);
+  const dispatch = useDispatch();
 
   return (
     <header className="header">
@@ -13,8 +15,8 @@ export default function Header() {
         <h3 className="title">Bootcamp Store</h3>
       </div>
       <div className="cart_container">
-        <img src={cart} alt="cart logo" className="cart_logo" onClick={() => context.dispatch({type: context.type.TOGGLE_IS_OPEN_POPUP})}/>
-        {context.state.cartState.length ? <div className="product_count">{context.state.cartState.length}</div> : <></>}
+        <img src={cart} alt="cart logo" className="cart_logo" onClick={() => dispatch(togglePopUp())}/>
+        {cartState.length ? <div className="product_count">{cartState.length}</div> : <></>}
       </div>
     </header>
   );

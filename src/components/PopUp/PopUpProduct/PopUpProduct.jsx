@@ -1,11 +1,12 @@
-import {Context} from "../../../context/MainContext";
+import {useDispatch} from "react-redux";
+import {deleteFromCart, popupAddProduct, popupMinusProduct} from "../../../redux/actions";
 import minusIcon from "../../../img/minus.svg";
 import plusIcon from "../../../img/plus.svg";
 import trashIcon from "../../../img/trash.svg";
 import "./PopUpProduct.css";
 
 export default function PopUpProduct({product}) {
-  const context = Context();
+  const dispatch = useDispatch();
 
   return (
     <div className="popup_product">
@@ -19,15 +20,9 @@ export default function PopUpProduct({product}) {
       <section className="buttons_section">
         <p className="total_count"><b>X </b>{product.totalCount}</p>
         <div className="popup_buttons">
-          <img src={minusIcon} alt="Minus Icon" className="popup_btn" onClick={() => {
-            context.dispatch({type: context.type.POPUP_MINUS_PRODUCT, product: product});
-          }}/>
-          <img src={plusIcon} alt="Plus Icon" className="popup_btn" onClick={() => {
-            context.dispatch({type: context.type.POPUP_ADD_PRODUCT, product: product});
-          }}/>
-          <img src={trashIcon} alt="Trash Icon" className="popup_btn" onClick={() => {
-            context.dispatch({type: context.type.DELETE_FROM_CART, id: product.id});
-          }}/>
+          <img src={minusIcon} alt="Minus Icon" className="popup_btn" onClick={() => dispatch(popupMinusProduct(product))}/>
+          <img src={plusIcon} alt="Plus Icon" className="popup_btn" onClick={() => dispatch(popupAddProduct(product))}/>
+          <img src={trashIcon} alt="Trash Icon" className="popup_btn" onClick={() => dispatch(deleteFromCart(product.id))}/>
         </div>
       </section>
     </div>
